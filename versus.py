@@ -3,7 +3,7 @@
 from board import ConnectFour
 from com_players import *
 
-first = hayabusa2
+first = hayabusa4
 last = hayabusa3
 
 first_win = 0

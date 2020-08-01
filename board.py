@@ -1,3 +1,6 @@
+# encoding:utf-8
+
+
 class ConnectFour:
 
     def __init__(self):
@@ -38,7 +41,14 @@ class ConnectFour:
         print("1 2 3 4 5 6 7 ")
         for i in range(6):
             for j in range(7):
-                print self.sign[self.board[j][i]],
+                piece_number = self.board[j][i]
+                color = "\033[30m"
+
+                if piece_number == 1:
+                    color = "\033[34m"  # 青
+                elif piece_number == 2:
+                    color = "\033[31m"  # 赤
+                print color + self.sign[piece_number] + "\033[0m",
             print
         print
 
