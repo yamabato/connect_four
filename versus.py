@@ -3,14 +3,14 @@
 from board import ConnectFour
 from com_players import *
 
-first = hawk
-last = hayabusa3
+first = hayabusa4
+last = hawk
 
 first_win = 0
 last_win = 0
 draw = 0
 
-N = 1000
+N = 50
 
 print first.__name__, "vs", last.__name__
 

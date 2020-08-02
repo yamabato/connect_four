@@ -3,6 +3,7 @@ from com_players import *
 
 board = ConnectFour()
 
+"""
 board.board = [
     [2, 2, 2, 1, 1, 1],
     [2, 2, 1, 2, 1, 2],
@@ -12,6 +13,7 @@ board.board = [
     [0, 0, 0, 0, 0, 2],
     [2, 1, 1, 2, 2, 1],
 ]
+"""
 
 board.show()
-print kiji(board, 1)
+print hawk(board, 1)

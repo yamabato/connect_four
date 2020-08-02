@@ -7,8 +7,8 @@ import time
 from board import ConnectFour
 from com_players import *
 
-first = "human"
-last = hayabusa4
+first = hawk
+last = "human"
 
 piece_color = {
     0:"white",
@@ -54,18 +54,24 @@ def click(x):
         tkMessageBox.showinfo("Connect Four","先手の勝利")
         board.__init__()
         show()
+        if first != "human":
+            click(-1)
         return
 
     elif result == 2:
         tkMessageBox.showinfo("Connect Four","後手の勝利")
         board.__init__()
         show()
+        if first != "human":
+            click(-1)
         return
 
     elif all(map(all,board.board)):
         tkMessageBox.showinfo("Connect Four","引き分け!")
         board.__init__()
         show()
+        if first != "human":
+            click(-1)
         return
 
     if board.turn % 2 == 1 and last != "human":
@@ -88,6 +94,9 @@ for x in range(7):
 board = ConnectFour()
 
 canvas.bind("<ButtonPress>",lambda e: click(e.x))
+
+if first != "human":
+    click(-1)
 
 tk.mainloop()
 

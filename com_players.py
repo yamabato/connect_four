@@ -650,7 +650,7 @@ def hayabusa4(board, hand):
 
 
 def hawk(board, hand):
-    N = 5
+    N = 3
 
     my_sign = "1" if hand == 0 else "2"
     enemy_sign = "2" if hand == 0 else "1"
@@ -805,9 +805,51 @@ def hawk(board, hand):
                     return x
 
     player = hayabusa4
+    
+    games = [[[player(board,hand)] for i in range(10)]]
+    original_board = copy.deepcopy(board.board)
+    game_hand = hand
 
-    return random.choice(legal_hands(board))
+    for i in range(N-1):
+        games.append([])
+        game_hand = abs(game_hand-1)
+        for game in games[-2]:
+            for j in range(10):
+                board.board = copy.deepcopy(original_board)
+                board.turn = hand
+                for x in game:
+                    board.drop(x)
 
+                games[-1].append(game+[player(board,game_hand)])
+
+    
+    score = [-1,[]]
+    for game in games[-1]:
+        board.board = copy.deepcopy(original_board)
+        board.turn = hand
+
+        for x in game:
+            board.drop(x)
+        
+        point = evaluation(board,hand) - evaluation(board,abs(hand-1))
+        if score[0] < point:
+            score = [point,[game[0]]]
+
+        elif score[0] == point:
+            score[1].append(game[0])
+    
+    board.board = copy.deepcopy(original_board)
+    board.turn = hand
+
+    if score[1]:
+        return random.choice(score[1])
+
+    legal = legal_hands(board)
+
+    if legal:
+        return random.choice(legal_hands(board))
+    else:
+        return -1
 
 def legal_hands(board):
     legal = []
