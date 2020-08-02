@@ -560,22 +560,6 @@ def hayabusa4(board, hand):
                 if x in option and y == board.board[x].count(0) - 1:
                     return x
 
-    for y in range(6):
-        line = ""
-        for x in range(7):
-            line += str(board.board[x][y])
-
-        for check in enemy_early_check:
-            if line.find(check) >= 0:
-                x = line.find(check) + enemy_early_check[check]
-
-                if y < 4 and board.board[x][y + 1] == 0 and board.board[x][y + 2] != 0:
-                    if x in option:
-                        option.remove(x)
-
-                if x in option and y == board.board[x].count(0) - 1:
-                    return x
-
     for l in diagonal_lines:
         line = ""
         for n in l:
@@ -612,6 +596,22 @@ def hayabusa4(board, hand):
                         option.remove(x)
 
                 elif x in option and y == 5 or (y < 5 and board.board[x][y + 1] != 0):
+                    return x
+
+    for y in range(6):
+        line = ""
+        for x in range(7):
+            line += str(board.board[x][y])
+
+        for check in enemy_early_check:
+            if line.find(check) >= 0:
+                x = line.find(check) + enemy_early_check[check]
+
+                if y < 4 and board.board[x][y + 1] == 0 and board.board[x][y + 2] != 0:
+                    if x in option:
+                        option.remove(x)
+
+                if x in option and y == board.board[x].count(0) - 1:
                     return x
 
     if not option:
