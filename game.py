@@ -4,7 +4,7 @@ from board import ConnectFour
 from com_players import *
 
 first = hayabusa4
-last = hayabusa4
+last = "human"
 
 
 while True:

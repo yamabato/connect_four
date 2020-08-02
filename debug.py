@@ -2,6 +2,7 @@ from board import ConnectFour
 from com_players import *
 
 board = ConnectFour()
+
 board.board = [
     [2, 2, 2, 1, 1, 1],
     [2, 2, 1, 2, 1, 2],
@@ -13,4 +14,4 @@ board.board = [
 ]
 
 board.show()
-print hayabusa4(board, 1)
+print kiji(board, 1)
