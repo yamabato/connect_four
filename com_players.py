@@ -650,7 +650,8 @@ def hayabusa4(board, hand):
 
 
 def hawk(board, hand):
-    N = 3
+    N = 5
+    pattern_n = 5
 
     my_sign = "1" if hand == 0 else "2"
     enemy_sign = "2" if hand == 0 else "1"
@@ -806,11 +807,11 @@ def hawk(board, hand):
 
     player = hayabusa4
     
-    games = [[[player(board,hand)] for i in range(10)]]
+    games = [[[player(board,hand)] for i in range(pattern_n)]]
 
     for game in games[0]:
         if game[0] not in option:
-            games.remove(game)
+            games[0].remove(game)
 
     original_board = copy.deepcopy(board.board)
     game_hand = hand
@@ -819,7 +820,7 @@ def hawk(board, hand):
         games.append([])
         game_hand = abs(game_hand-1)
         for game in games[-2]:
-            for j in range(10):
+            for j in range(pattern_n):
                 board.board = copy.deepcopy(original_board)
                 board.turn = hand
                 for x in game:

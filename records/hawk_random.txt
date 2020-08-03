@@ -1,0 +1,3 @@
+hawk 100 勝
+random_player 0 勝
+0 引き分け

@@ -3,8 +3,8 @@
 from board import ConnectFour
 from com_players import *
 
-first = hawk
-last = "human"
+first = "human"
+last = hawk
 
 
 while True:
