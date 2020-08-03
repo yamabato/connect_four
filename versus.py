@@ -10,7 +10,7 @@ first_win = 0
 last_win = 0
 draw = 0
 
-N = 50
+N = 10
 
 print first.__name__, "vs", last.__name__
 

@@ -7,8 +7,8 @@ import time
 from board import ConnectFour
 from com_players import *
 
-first = hawk
-last = "human"
+first = "human"
+last = hawk
 
 piece_color = {
     0:"white",
