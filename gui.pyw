@@ -7,11 +7,13 @@ import time
 from board import ConnectFour
 from com_players import *
 
-first = hawk
-last = hayabusa4
+first = "人間代表"
+last = hawk
 
 first_name =first if type(first) == str else first.__name__
 last_name = last if type(last) == str else last.__name__
+
+kifu = []
 
 piece_color = {
     0:"white",
@@ -20,6 +22,8 @@ piece_color = {
 }
 
 def show():
+    global kifu
+    kifu.append(board.board)
     if board.turn % 2 == 0:
         turn_label.configure(text="先手番 "+first_name + "  思考中...")
     else:
@@ -34,7 +38,9 @@ def show():
             canvas.create_oval(x*50,y*50,(x+1)*50,(y+1)*50,fill=clr,width=0)
     tk.update()
 
+    board.show()
 def click(x):
+    global kifu
     x = x // 50    
     
     if x == -1:
@@ -66,6 +72,8 @@ def click(x):
         show()
         if type(first) != str:
             click(-1)
+        print kifu
+        kifu = []
         return
 
     elif result == 2:
@@ -74,6 +82,8 @@ def click(x):
         show()
         if type(first) != str:
             click(-1)
+        print kifu
+        kifu = []
         return
 
     elif all(map(all,board.board)):
@@ -82,6 +92,8 @@ def click(x):
         show()
         if type(first) != str:
             click(-1)
+        print kifu
+        kifu = []
         return
 
     if board.turn % 2 == 1 and type(last) != str:
@@ -117,6 +129,8 @@ square_rect_id = -1
 
 turn_label = Label(tk,text="先手番",font=("",30))
 turn_label.place(x=0,y=0)
+player_label = Label(tk,text=first_name + " vs " + last_name,font=("",20))
+player_label.place(x=50,y=380)
 
 for x in range(7):
     for y in range(6):

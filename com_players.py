@@ -747,6 +747,9 @@ def hawk(board, hand):
                 if y < 4 and board.board[x][y + 1] == 0 and board.board[x][y + 2] != 0:
                     if x in option:
                         option.remove(x)
+                elif y == 4 and board.board[x][y+1] == 0:
+                    if x in option:
+                        option.remove(x)
 
                 if x in option and y == board.board[x].count(0) - 1:
                     return x
@@ -766,6 +769,11 @@ def hawk(board, hand):
                 if y < 4 and board.board[x][y + 1] == 0 and board.board[x][y + 2] != 0:
                     if x in option:
                         option.remove(x)
+                elif y == 4 and board.board[x][y+1] == 0:
+                    if x in option:
+                        option.remove(x)
+
+
 
                 elif x in option and y == 5 or (y < 5 and board.board[x][y + 1] != 0):
                     return x
@@ -806,8 +814,8 @@ def hawk(board, hand):
                     return x
 
     player = lambda board,hand: hayabusa4_engine(board,hand,1)
-    
     games = [[[player(board,hand)] for i in range(pattern_n)]]
+
 
     for game in games[0]:
         if game[0] not in option:
