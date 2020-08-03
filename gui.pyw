@@ -7,7 +7,7 @@ import time
 from board import ConnectFour
 from com_players import *
 
-first = "人間代表"
+first = hawk
 last = hawk
 
 first_name =first if type(first) == str else first.__name__
