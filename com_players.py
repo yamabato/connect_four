@@ -456,9 +456,7 @@ def hayabusa3(board, hand):
     return random.choice(max_point_hands[1])
 
 
-def hayabusa4(board, hand):
-    N = 1
-
+def hayabusa4_engine(board, hand, N):
     if N % 2 == 0:
         N += 1
 
@@ -648,6 +646,8 @@ def hayabusa4(board, hand):
 
     return random.choice(max_point_hands[1])
 
+def hayabusa4(board,hand):
+    return hayabusa4_engine(board,hand,5)
 
 def hawk(board, hand):
     N = 5
@@ -805,7 +805,7 @@ def hawk(board, hand):
                 if x in option and y == board.board[x].count(0) - 1:
                     return x
 
-    player = hayabusa4
+    player = lambda board,hand: hayabusa4_engine(board,hand,1)
     
     games = [[[player(board,hand)] for i in range(pattern_n)]]
 

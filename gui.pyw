@@ -8,7 +8,7 @@ from board import ConnectFour
 from com_players import *
 
 first = hawk
-last = "kenrick95 c4" 
+last = hayabusa4
 
 first_name =first if type(first) == str else first.__name__
 last_name = last if type(last) == str else last.__name__
