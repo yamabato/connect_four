@@ -808,16 +808,9 @@ def hawk(board, hand):
     
     games = [[[player(board,hand)] for i in range(10)]]
 
-    for game in games:
-        if game[0][0] not in option:
+    for game in games[0]:
+        if game[0] not in option:
             games.remove(game)
-    
-    if not games:
-        legal = legal_hands(board)
-        if legal:
-            return random.choice(legal)
-        else:
-            return -1
 
     original_board = copy.deepcopy(board.board)
     game_hand = hand

@@ -33,7 +33,7 @@ AIと対戦する時は、ターミナルでconnect_fourフォルダに入り(cd
 
 ダウンロードしたままなら、人間 対 hayabusa3となっています。
 
-機械には、`random_player` `hayabusa` `hayabusa2` `hayabusa3`という3つがあります。対戦する相手を変える時は、`vim game.py`とターミナルで入力し、プログラムを書き換えます。game.pyを開くと、上の方に次のような行があります。
+機械には、`random_player` `hayabusa` `hayabusa2` `hayabusa3` `hayabusa4` `hawk` という3つがあります。対戦する相手を変える時は、`vim game.py`とターミナルで入力し、プログラムを書き換えます。game.pyを開くと、上の方に次のような行があります。
 
 ```python
 first = "human"
