@@ -1,17 +1,18 @@
 #encoding: utf-8
 
 from tkinter import *
+import tkinter.ttk as ttk
 import tkMessageBox
 import time
 
 from board import ConnectFour
 from com_players import *
 
-first = hawk
-last = hawk
+first = ""
+last = ""
 
-first_name =first if type(first) == str else first.__name__
-last_name = last if type(last) == str else last.__name__
+first_name = ""
+last_name = ""
 
 kifu = []
 
@@ -21,13 +22,71 @@ piece_color = {
     2:"red",
 }
 
+player_function = {
+    "random_player":random_player,
+    "hayabusa":hayabusa,
+    "hayabusa2":hayabusa2,
+    "hayabusa3":hayabusa3,
+    "hayabusa4":hayabusa4,
+    "hawk":hawk,
+}
+
+com_player_list = (
+    "random_player",
+    "hayabusa","hayabusa2","hayabusa3","hayabusa4",
+    "hawk",
+)
+
+def start():
+    global first,last,first_name,last_name,kifu
+
+    p1 = player1_combo.get()
+    p2 = player2_combo.get()
+
+    first = p1
+    last = p2
+
+    if p1 in player_function:
+        first = player_function[p1]
+    if p2 in player_function:
+        last = player_function[p2]
+
+    first_name = p1
+    last_name = p2
+
+    board.__init__()
+    kifu = []
+    player_label.configure(text=first_name + " vs " + last_name)
+    show()
+
+    if not (isinstance(first,str) or isinstance(first,unicode)):
+        click(-1)
+    
+def end(winner): 
+    global kifu
+
+    msg = "引き分け!"
+
+    if winner == 0:
+        msg = u"先手({0})の勝利".format(first_name)
+    elif winner == 1:
+        msg = u"後手({0})の勝利".format(last_name)
+
+    tkMessageBox.showinfo("Connect Four",msg)
+    board.__init__()
+    print kifu
+    kifu = []
+    show()
+
+    turn_label.configure(text="試合待ち...")
+
 def show():
     global kifu
     kifu.append(board.board)
     if board.turn % 2 == 0:
-        turn_label.configure(text="先手番 "+first_name + "  思考中...")
+        turn_label.configure(text=u"先手番 {0}  思考中...".format(first_name))
     else:
-        turn_label.configure(text="後手番 "+last_name + "  思考中...")
+        turn_label.configure(text=u"後手番 {0}  思考中...".format(last_name))
 
     for x in range(7):
         for y in range(6):
@@ -39,6 +98,7 @@ def show():
     tk.update()
 
     board.show()
+
 def click(x):
     global kifu
     x = x // 50    
@@ -50,15 +110,15 @@ def click(x):
             board.drop(last(board,1))
 
     elif board.turn % 2 == 0:
-        if type(first) == str:
+        if isinstance(first,str) or isinstance(first,unicode):
             board.drop(x)
         else:
-            board.drop(first(board,0))
+            return
     else:
-        if type(last) == str:
+        if isinstance(last,str) or isinstance(last,unicode):
             board.drop(x)
         else:
-            board.drop(last(board,1))
+            return
 
     canvas.delete(x_rect_id)
     canvas.delete(square_rect_id)
@@ -67,43 +127,32 @@ def click(x):
     result = board.judge()
 
     if result == 1:
-        tkMessageBox.showinfo("Connect Four","先手"+first_name+"の勝利")
-        board.__init__()
-        show()
-        if type(first) != str:
-            click(-1)
-        print kifu
-        kifu = []
-        return
+        end(0)
+        return 
 
     elif result == 2:
-        tkMessageBox.showinfo("Connect Four","後手"+last_name+"の勝利")
-        board.__init__()
-        show()
-        if type(first) != str:
-            click(-1)
-        print kifu
-        kifu = []
+        end(1)
         return
 
     elif all(map(all,board.board)):
-        tkMessageBox.showinfo("Connect Four","引き分け!")
-        board.__init__()
-        show()
-        if type(first) != str:
-            click(-1)
-        print kifu
-        kifu = []
+        end(-1)
         return
 
-    if board.turn % 2 == 1 and type(last) != str:
+    if board.turn % 2 == 1 and not (isinstance(last,str) or isinstance(last,unicode)):
         click(-1)
-    elif board.turn % 2 == 0 and type(first) != str:
+    elif board.turn % 2 == 0 and not (isinstance(first,str) or isinstance(first,unicode)):
         click(-1)
         
 def move(x):
     global x_rect_id,square_rect_id
     
+    if board.turn % 2 == 0:
+        if callable(first):
+            return
+    else:
+        if callable(last):
+            return
+
     if x_rect_id != -1:
         canvas.delete(x_rect_id)
     if square_rect_id != -1:
@@ -132,6 +181,20 @@ turn_label.place(x=0,y=0)
 player_label = Label(tk,text=first_name + " vs " + last_name,font=("",20))
 player_label.place(x=50,y=380)
 
+player1_combo = ttk.Combobox(tk, state="normal", width=20)
+player1_combo["values"] = com_player_list
+player1_combo.place(x=50,y=450)
+
+player2_combo = ttk.Combobox(tk, state="normal", width=20)
+player2_combo["values"] = com_player_list
+player2_combo.place(x=50,y=470)
+
+start_btn = Button(tk,text="試合開始",bg="blue",highlightbackground="blue",command=start)
+start_btn.place(x=250,y=460)
+
+exit_btn = Button(tk,text="終了",bg="red",highlightbackground="red",command=exit,font=("",20))
+exit_btn.place(x=400,y=460)
+
 for x in range(7):
     for y in range(6):
         canvas.create_oval(x*50,y*50,(x+1)*50,(y+1)*50,fill="white",width=0)
@@ -142,8 +205,9 @@ show()
 canvas.bind("<ButtonPress>",lambda e: click(e.x))
 canvas.bind("<Motion>",lambda e:move(e.x))
 
-if type(first) != str:
-    click(-1)
+player1_combo.set("人間")
+player2_combo.set("hawk")
+start()
 
 tk.mainloop()
 
