@@ -44,6 +44,9 @@ def start():
     p1 = player1_combo.get()
     p2 = player2_combo.get()
 
+    player1_combo.configure(state="disable")
+    player2_combo.configure(state="disable")
+
     first = p1
     last = p2
 
@@ -72,6 +75,11 @@ def end(winner):
         msg = u"先手({0})の勝利".format(first_name)
     elif winner == 1:
         msg = u"後手({0})の勝利".format(last_name)
+    elif winner == -1:
+        msg = "試合中断"
+    
+    player1_combo.configure(state="normal")
+    player2_combo.configure(state="normal")
 
     tkMessageBox.showinfo("Connect Four",msg)
     board.__init__()
@@ -191,7 +199,9 @@ player2_combo["values"] = com_player_list
 player2_combo.place(x=50,y=470)
 
 start_btn = Button(tk,text="試合開始",bg="blue",highlightbackground="blue",command=start)
-start_btn.place(x=250,y=460)
+start_btn.place(x=250,y=450)
+end_btn = Button(tk,text="試合中断",bg="purple",highlightbackground="purple",command=lambda:end(-1))
+end_btn.place(x=250,y=480)
 
 exit_btn = Button(tk,text="終了",bg="red",highlightbackground="red",command=exit,font=("",20))
 exit_btn.place(x=400,y=460)
