@@ -222,7 +222,6 @@ canvas.bind("<Motion>",lambda e:move(e.x))
 
 player1_combo.set("人間")
 player2_combo.set("hawkC")
-start()
 
 tk.mainloop()
 
