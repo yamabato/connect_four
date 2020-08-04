@@ -867,7 +867,7 @@ def hawk(board, hand):
         return -1
 
 
-def hawk_c(board, hand):
+def hawkC(board, hand):
     N = 5
     pattern_n = 5
 

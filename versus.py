@@ -4,7 +4,7 @@ from board import ConnectFour
 from com_players import *
 
 first = hawk
-last = hawk_c
+last = hawkC
 
 first_win = 0
 last_win = 0
