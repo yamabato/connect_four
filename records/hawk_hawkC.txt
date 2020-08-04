@@ -1,3 +1,7 @@
 hawk 2 勝
 hawkC 6 勝
 2 引き分け
+
+hawk 9 勝
+hawkC 38 勝
+3 引き分け

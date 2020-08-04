@@ -110,6 +110,10 @@ def show():
 
 def click(x):
     global kifu
+
+    player1_combo.configure(state="disable")
+    player2_combo.configure(state="disable")
+
     x = x // 50    
     
     if x == -1:
