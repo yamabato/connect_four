@@ -29,12 +29,13 @@ player_function = {
     "hayabusa3":hayabusa3,
     "hayabusa4":hayabusa4,
     "hawk":hawk,
+    "hawk_c":hawk_c,
 }
 
 com_player_list = (
     "random_player",
     "hayabusa","hayabusa2","hayabusa3","hayabusa4",
-    "hawk",
+    "hawk","hawk_c",
 )
 
 def start():
