@@ -36,6 +36,9 @@ class ConnectFour:
         ]
 
         self.sign = {0: "-", 1: "O", 2: "X"}
+    
+    def __repr__(self):
+        self.show()
 
     def show(self):
         print("1 2 3 4 5 6 7 ")
