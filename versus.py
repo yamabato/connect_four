@@ -7,14 +7,14 @@ from hayabusa import *
 from hawk import *
 from swallow import *
 
-first = hayabusa4
-last = random_player
+first = random_player
+last = random_alpha
 
 first_win = 0
 last_win = 0
 draw = 0
 
-N = 10
+N = 1000
 
 print first.__name__, "vs", last.__name__
 

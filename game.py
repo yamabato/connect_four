@@ -8,7 +8,7 @@ from hawk import *
 from swallow import *
 
 first = "human"
-last = hawk
+last = swallow
 
 
 while True:

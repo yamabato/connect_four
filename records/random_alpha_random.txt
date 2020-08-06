@@ -1,0 +1,7 @@
+random_player 23 勝
+random_alpha 972 勝
+5 引き分け
+
+random_alpha 984 勝
+random_player 11 勝
+5 引き分け

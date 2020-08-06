@@ -28,18 +28,21 @@ piece_color = {
 
 player_function = {
     "random_player": random_player,
+    "random_alpha": random_alpha,
     "hayabusa": hayabusa,
     "hayabusa2": hayabusa2,
     "hayabusa3": hayabusa3,
     "hayabusa4": hayabusa4,
     "hawk": hawk,
     "hawkC": hawkC,
+    "swallow":swallow,
 }
 
 com_player_list = (
-    "random_player",
+    "random_player","random_alpha",
     "hayabusa", "hayabusa2", "hayabusa3", "hayabusa4",
     "hawk", "hawkC",
+    "swallow",
     "人間", "人間代表",
 )
 
@@ -114,8 +117,6 @@ def show():
             canvas.create_oval(x * 50, y * 50, (x + 1) * 50,
                                (y + 1) * 50, fill=clr, width=0)
     tk.update()
-
-    board.show()
 
 
 def click(x):
@@ -236,8 +237,8 @@ show()
 canvas.bind("<ButtonPress>", lambda e: click(e.x))
 canvas.bind("<Motion>", lambda e: move(e.x))
 
-player1_combo.set("hawk")
-player2_combo.set("hawkC")
+player1_combo.set("人間")
+player2_combo.set("swallow")
 
 turn_label.configure(text="試合待ち...")
 

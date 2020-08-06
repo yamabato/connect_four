@@ -447,3 +447,5 @@ def hawkC(board, hand):
         return random.choice(legal_hands(board))
     else:
         return -1
+
+

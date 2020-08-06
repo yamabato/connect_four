@@ -1,0 +1,7 @@
+swallow 6 勝
+hawk 3 勝
+1 引き分け
+
+hawk 4 勝
+swallow 6 勝
+0 引き分け
