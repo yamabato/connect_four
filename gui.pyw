@@ -195,6 +195,7 @@ tk = Tk()
 tk.title("Connect Four")
 tk.geometry("500x500")
 tk.configure(bg="#8d6449")
+tk.resizable(0,0)
 
 canvas = Canvas(tk, height=300, width=350, bg="#696969")
 canvas.place(x=50, y=50)

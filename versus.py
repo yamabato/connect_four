@@ -1,4 +1,5 @@
 # encoding:utf-8
+import sys
 
 from board import ConnectFour
 
@@ -7,40 +8,42 @@ from hayabusa import *
 from hawk import *
 from swallow import *
 
-first = random_player
-last = random_alpha
+def versus(first,last,N):
+    first_win = 0
+    last_win = 0
+    draw = 0
 
-first_win = 0
-last_win = 0
-draw = 0
+    print first.__name__, "vs", last.__name__
 
-N = 1000
+    for i in range(N):
+        percent = float(i+1) / float(N) * 100
 
-print first.__name__, "vs", last.__name__
+        #if percent == int(percent):
+        sys.stdout.write("\r" + "#"*int(percent/2) + "  " + str(percent)+"%  " + str(i+1) + "/" + str(N))
+        sys.stdout.flush()
 
-for i in range(N):
-    print i + 1, "試合目"
-    board = ConnectFour()
+        board = ConnectFour()
 
-    for j in range(42):
-        if board.turn == 0:
-            x = first(board, board.turn)
-        else:
-            x = last(board, board.turn)
-
-        board.drop(x)
-        # board.show()
-
-        if board.judge():
-            if board.turn == 1:
-                first_win += 1
+        for j in range(42):
+            if board.turn == 0:
+                x = first(board, board.turn)
             else:
-                last_win += 1
-            break
-    else:
-        draw += 1
+                x = last(board, board.turn)
 
+            board.drop(x)
 
-print first.__name__, first_win, "勝"
-print last.__name__, last_win, "勝"
-print draw, "引き分け"
+            if board.judge():
+                if board.turn == 1:
+                    first_win += 1
+                else:
+                    last_win += 1
+                break
+        else:
+            draw += 1
+
+    print ""
+    print first.__name__, first_win, "勝"
+    print last.__name__, last_win, "勝"
+    print draw, "引き分け"
+
+versus(random_player,random_player,100)
