@@ -81,7 +81,7 @@ def swallow_engine(board, hand,f,trials,do_check,print_info):
     #情報表示部 
     if print_info:
         print "先手番" if hand == 0 else "後手番"
-        [sys.stdout.write(str(k)+": "+str(wins[k])+"\n") for k in wins.keys()]
+        [sys.stdout.write(str(k)+": "+str(round(float(wins[k]) / float(trials) * 100,2))+"%\n") for k in wins.keys()]
         print "選択:",choiced_x
         print "想定勝率:", (float(wins[choiced_x])/float(trials))*100,"%\n"
     
@@ -89,3 +89,12 @@ def swallow_engine(board, hand,f,trials,do_check,print_info):
 
 def swallow(board,hand):
     return swallow_engine(board,hand,random_alpha,100,True,True)
+
+def swallow_fast(board,hand):
+    return swallow_engine(board,hand,random_player,50,True,True)
+
+def swallow_powerful(board,hand):
+    return swallow_engine(board,hand,random_alpha,200,True,True)
+
+def swallowC(board,hand):
+    return swallow_engine(board,hand,random_alpha,100,False,True)

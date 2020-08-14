@@ -36,13 +36,17 @@ player_function = {
     "hawk": hawk,
     "hawkC": hawkC,
     "swallow":swallow,
+    "swallow Fast":swallow_fast,
+    "swallow Powerful":swallow_powerful,
+    "swallowC" : swallowC,
 }
 
 com_player_list = (
     "random_player","random_alpha",
     "hayabusa", "hayabusa2", "hayabusa3", "hayabusa4",
     "hawk", "hawkC",
-    "swallow",
+    "swallow","swallow Fast","swallow Powerful","swallowC",
+
     "人間", "人間代表",
 )
 
@@ -93,16 +97,23 @@ def end(winner):
 
     tkMessageBox.showinfo("Connect Four", msg)
     board.__init__()
+    show()
+
+    b = ConnectFour()
+
+    b.show()
+    for x in kifu:
+        b.drop(x)
+        b.show()
+
     print kifu
     kifu = []
-    show()
 
     turn_label.configure(text="試合待ち...")
 
 
 def show():
     global kifu
-    kifu.append(board.board)
     if board.turn % 2 == 0:
         turn_label.configure(text=u"先手番 {0}  思考中...".format(first_name))
     else:
@@ -129,18 +140,24 @@ def click(x):
 
     if x == -1:
         if board.turn % 2 == 0:
-            board.drop(first(board, 0))
+            x = first(board,0)
+            board.drop(x)
+            kifu.append(x)
         else:
-            board.drop(last(board, 1))
+            x = last(board,1)
+            board.drop(x)
+            kifu.append(x)
 
     elif board.turn % 2 == 0:
         if isinstance(first, str) or isinstance(first, unicode):
             board.drop(x)
+            kifu.append(x)
         else:
             return
     else:
         if isinstance(last, str) or isinstance(last, unicode):
             board.drop(x)
+            kifu.append(x)
         else:
             return
 
@@ -182,6 +199,7 @@ def move(x):
         canvas.delete(x_rect_id)
     if square_rect_id != -1:
         canvas.delete(square_rect_id)
+
 
     line_x = (x // 50) * 50
     x_rect_id = canvas.create_rectangle(line_x, 0, line_x + 50, 300, width=2)

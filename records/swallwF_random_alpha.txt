@@ -1,0 +1,3 @@
+random_alpha 12 勝
+swallow_fast 84 勝
+4 引き分け
