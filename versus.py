@@ -46,4 +46,4 @@ def versus(first,last,N):
     print last.__name__, last_win, "勝"
     print draw, "引き分け"
 
-versus(random_alpha,hayabusa2,100)
+versus(swallow_fast,bosatsu,100)

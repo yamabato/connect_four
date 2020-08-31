@@ -4,6 +4,7 @@ import sys
 import random
 import itertools
 import copy
+import collections
 
 from board import ConnectFour
 from com_player_tool import *
@@ -91,10 +92,18 @@ def swallow(board,hand):
     return swallow_engine(board,hand,random_alpha,100,True,True)
 
 def swallow_fast(board,hand):
-    return swallow_engine(board,hand,random_player,50,True,True)
+    return swallow_engine(board,hand,random_player,50,True,False)
 
 def swallow_powerful(board,hand):
     return swallow_engine(board,hand,random_alpha,200,True,True)
 
 def swallowC(board,hand):
     return swallow_engine(board,hand,random_alpha,100,False,True)
+
+def swallowW(board,hand):
+    return swallow_engine(board,hand,random_player,20,False,False)
+
+def bosatsu(board,hand):
+    choiced = [swallow_fast(board,hand),swallow_fast(board,hand),swallow_fast(board,hand)]
+    #print sorted(choiced)
+    return collections.Counter(choiced).most_common()[0][0]

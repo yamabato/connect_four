@@ -39,13 +39,15 @@ player_function = {
     "swallow Fast":swallow_fast,
     "swallow Powerful":swallow_powerful,
     "swallowC" : swallowC,
+    "swallowW" : swallowW,
+    "bosatsu" : bosatsu,
 }
 
 com_player_list = (
     "random_player","random_alpha",
     "hayabusa", "hayabusa2", "hayabusa3", "hayabusa4",
     "hawk", "hawkC",
-    "swallow","swallow Fast","swallow Powerful","swallowC",
+    "swallow","swallow Fast","swallow Powerful","swallowC","swallowW","bosatsu",
 
     "人間", "人間代表",
 )
