@@ -21,11 +21,15 @@ def random_alpha(board,hand):
 def swallow_engine(board, hand,f,trials,do_check,print_info):
     if do_check:
         check_x, option = check(board, hand)
+        if not option:
+            print "0%"
+            return legal_hands(board)[0]
+
     else:
         check_x = -1
         option = legal_hands(board)
-
-    legal = legal_hands(board)
+        
+    legal = option
     original_board = copy.deepcopy(board.board)
 
     wins = {k:0 for k in legal}
@@ -81,10 +85,13 @@ def swallow_engine(board, hand,f,trials,do_check,print_info):
 
     #情報表示部 
     if print_info:
-        print "先手番" if hand == 0 else "後手番"
-        [sys.stdout.write(str(k)+": "+str(round(float(wins[k]) / float(trials) * 100,2))+"%\n") for k in wins.keys()]
-        print "選択:",choiced_x
-        print "想定勝率:", (float(wins[choiced_x])/float(trials))*100,"%\n"
+        print "\033[41m先手番\033[0m" if hand == 0 else "\033[44m後手番\033[0m"
+        [sys.stdout.write(str(k)+": "+ ("\033[31m" if round(float(wins[k]) / float(trials) * 100,2) < 50 else "\033[34m") +str(round(float(wins[k]) / float(trials) * 100,2))+"%\033[0m\n") for k in wins.keys()]
+        
+        win_rate = (float(wins[choiced_x])/float(trials))*100
+        clr = "\033[31m" if win_rate < 50 else "\033[34m"
+        print "選択:", clr + str(choiced_x) + "\033[0m"
+        print "想定勝率:", clr + str(win_rate),"%\n\033[0m"
     
     return choiced_x
 
