@@ -40,6 +40,7 @@ player_function = {
     "swallow Powerful":swallow_powerful,
     "swallowC" : swallowC,
     "swallowW" : swallowW,
+    "swallowD" : swallowD,
     "bosatsu" : bosatsu,
 }
 
@@ -47,7 +48,7 @@ com_player_list = (
     "random_player","random_alpha",
     "hayabusa", "hayabusa2", "hayabusa3", "hayabusa4",
     "hawk", "hawkC",
-    "swallow","swallow Fast","swallow Powerful","swallowC","swallowW","bosatsu",
+    "swallow","swallow Fast","swallow Powerful","swallowC","swallowW","swallowD","bosatsu",
 
     "人間", "人間代表",
 )
@@ -115,11 +116,15 @@ def end(winner):
 
 
 def show():
-    global kifu
+    global kifu, stones_id
     if board.turn % 2 == 0:
         turn_label.configure(text=u"先手番 {0}  思考中...".format(first_name))
     else:
         turn_label.configure(text=u"後手番 {0}  思考中...".format(last_name))
+
+    for si in stones_id:
+        canvas.delete(si)
+    stones_id = []
 
     for x in range(7):
         for y in range(6):
@@ -127,8 +132,8 @@ def show():
 
             clr = piece_color[piece]
 
-            canvas.create_oval(x * 50, y * 50, (x + 1) * 50,
-                               (y + 1) * 50, fill=clr, width=0)
+            stones_id.append(canvas.create_oval(x * 50+5, y * 50+5, (x + 1) * 50-5,
+                               (y + 1) * 50-5, fill=clr, width=0))
     tk.update()
 
 
@@ -204,24 +209,25 @@ def move(x):
 
 
     line_x = (x // 50) * 50
-    x_rect_id = canvas.create_rectangle(line_x, 0, line_x + 50, 300, width=2)
+    x_rect_id = canvas.create_rectangle(line_x, 0, line_x + 50, 300, width=1)
 
     if x // 50 < 7 and not all(board.board[x // 50]):
         y = board.board[x // 50].count(0) * 50
         square_rect_id = canvas.create_oval(
-            line_x, y - 50, line_x + 50, y, width=0, stipple="gray50", fill="gray")
+            line_x+5, y - 45, line_x + 45, y-5, width=0, fill="#dcdcdc")
 
 tk = Tk()
 tk.title("Connect Four")
 tk.geometry("500x500")
-tk.configure(bg="#8d6449")
+tk.configure(bg="#deb887")
 tk.resizable(0,0)
 
-canvas = Canvas(tk, height=300, width=350, bg="#696969")
+canvas = Canvas(tk, height=300, width=350, bg="#b0c4de")
 canvas.place(x=50, y=50)
 
 x_rect_id = -1
 square_rect_id = -1
+stones_id = []
 
 turn_label = Label(tk, text="先手番", font=("", 30))
 turn_label.place(x=0, y=0)
@@ -250,7 +256,7 @@ exit_btn.place(x=400, y=460)
 for x in range(7):
     for y in range(6):
         canvas.create_oval(x * 50, y * 50, (x + 1) * 50,
-                           (y + 1) * 50, fill="white", width=0)
+                           (y + 1) * 50, fill="#f3f3f2", width=0)
 
 board = ConnectFour()
 show()
