@@ -243,6 +243,7 @@ def check(board, hand):
 
     enemy_early_check = {
         "0" + enemy_sign * 2 + "0": 0,
+        "0" + enemy_sign * 2 + "0": 3,
         "0" + enemy_sign + "0" + enemy_sign + "0": 0,
     }
 
